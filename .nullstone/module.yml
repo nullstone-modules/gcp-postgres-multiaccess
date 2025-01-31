@@ -1,0 +1,16 @@
+org_name: nullstone
+name: gcp-postgres-multiaccess
+friendly_name: Postgres Multi-Access
+description: Grants an application access to a primary mysql database as well as additional databases
+category: capability
+subcategory: datastores
+provider_types:
+    - gcp
+platform: postgres
+subplatform: ""
+type: capability/postgres-access/gcp
+appCategories:
+    - container
+    - serverless
+    - server
+is_public: true
