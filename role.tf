@@ -21,6 +21,8 @@ resource "restapi_object" "superuser_role_member" {
   id_attribute = "member"
   object_id    = "${local.superuser_role}::${local.username}"
   force_new    = [local.superuser_role, local.username]
+  read_path    = "/roles/${local.superuser_role}/members/${local.username}"
+  update_path  = "/roles/${local.superuser_role}/members/${local.username}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -39,6 +41,8 @@ resource "restapi_object" "role_member" {
   id_attribute = "member"
   object_id    = "${local.database_owner}::${local.username}"
   force_new    = [local.database_owner, local.username]
+  read_path    = "/roles/${local.database_owner}/members/${local.username}"
+  update_path  = "/roles/${local.database_owner}/members/${local.username}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -58,6 +62,8 @@ resource "restapi_object" "schema_privileges" {
   id_attribute = "role"
   object_id    = "${local.database_name}::${local.username}"
   force_new    = [local.database_name, local.username]
+  read_path    = "/databases/${local.database_name}/schema_privileges/${local.username}"
+  update_path  = "/databases/${local.database_name}/schema_privileges/${local.username}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -76,6 +82,8 @@ resource "restapi_object" "default_grants" {
   id_attribute = "id"
   object_id    = "${local.username}::${local.database_owner}::${local.database_name}"
   force_new    = [local.username, local.database_owner, local.database_name]
+  read_path    = "/roles/${local.username}/default_grants/${local.database_owner}::${local.database_name}"
+  update_path  = "/roles/${local.username}/default_grants/${local.database_owner}::${local.database_name}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -100,6 +108,8 @@ resource "restapi_object" "additional_role_member" {
   id_attribute = "member"
   object_id    = "${each.key}::${local.username}"
   force_new    = [each.key, local.username]
+  read_path    = "/roles/${each.key}/members/${local.username}"
+  update_path  = "/roles/${each.key}/members/${local.username}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -121,6 +131,8 @@ resource "restapi_object" "additional_schema_privileges" {
   id_attribute = "role"
   object_id    = "${each.key}::${local.username}"
   force_new    = [each.key, local.username]
+  read_path    = "/databases/${each.key}/schema_privileges/${local.username}"
+  update_path  = "/databases/${each.key}/schema_privileges/${local.username}"
   destroy_path = "/skip"
 
   data = jsonencode({
@@ -141,6 +153,8 @@ resource "restapi_object" "additional_default_grants" {
   id_attribute = "id"
   object_id    = "${local.username}::${each.key}::${each.key}"
   force_new    = [local.username, each.key, each.key]
+  read_path    = "/roles/${local.username}/default_grants/${each.key}::${each.key}"
+  update_path  = "/roles/${local.username}/default_grants/${each.key}::${each.key}"
   destroy_path = "/skip"
 
   data = jsonencode({

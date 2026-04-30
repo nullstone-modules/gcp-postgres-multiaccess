@@ -1,7 +1,11 @@
 resource "random_password" "this" {
   // Master password length constraints differ for each database engine. For more information, see the available settings when creating each DB instance.
-  length  = 16
-  special = true
+  length      = 16
+  special     = true
+  min_upper   = var.strict_password_policy ? 1 : null
+  min_lower   = var.strict_password_policy ? 1 : null
+  min_numeric = var.strict_password_policy ? 1 : null
+  min_special = var.strict_password_policy ? 1 : null
 
   // The password for the master database user can include any printable ASCII character except /, ", @, or a space.
   // We're also excluding the following characters:

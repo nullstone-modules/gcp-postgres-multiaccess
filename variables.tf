@@ -23,6 +23,12 @@ EOF
   default     = []
 }
 
+variable "strict_password_policy" {
+  type        = bool
+  default     = true
+  description = "Enforce strict password policy which ensures there is one uppercase, one lowercase, one numeric, and one special character"
+}
+
 // We are using ns_env_variables to interpolate database_name
 data "ns_env_variables" "db_name" {
   input_env_variables = tomap({

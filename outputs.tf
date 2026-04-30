@@ -11,6 +11,10 @@ output "env" {
     {
       name  = "POSTGRES_DB"
       value = local.database_name
+    },
+    {
+      name  = "POSTGRES_SSL_MODE"
+      value = local.postgres_ssl_mode
     }
   ]
 }
@@ -23,7 +27,7 @@ output "secrets" {
     },
     {
       name  = "POSTGRES_URL"
-      value = "postgres://${urlencode(local.username)}:${urlencode(random_password.this.result)}@${local.db_endpoint}/${urlencode(local.database_name)}"
+      value = local.postgres_url
     }
   ]
 }
